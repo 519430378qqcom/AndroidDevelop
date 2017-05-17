@@ -9,15 +9,15 @@
             android:title="@string/custom_view"/>
     </group>
     <item android:title="选项">
-        <menu>
-            <item
-                android:id="@+id/setting"
-                android:icon="@drawable/ic_drawer_setting"
-                android:title="设置" />
-            <item
-                android:id="@+id/about"
-                android:icon="@drawable/ic_drawer_about"
-                android:title="关于" />
-        </menu>
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/setting"-->
+                <!--android:icon="@drawable/ic_drawer_setting"-->
+                <!--android:title="设置" />-->
+            <!--<item-->
+                <!--android:id="@+id/about"-->
+                <!--android:icon="@drawable/ic_my_about"-->
+                <!--android:title="关于" />-->
+        <!--</menu>-->
     </item>
 </menu>

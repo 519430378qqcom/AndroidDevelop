@@ -5,46 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
+    <com.dong.develop.customview.NoScrollViewPager
         android:id="@+id/vp_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_navigation_bar">
-    </android.support.v4.view.ViewPager>
+    </com.dong.develop.customview.NoScrollViewPager>
 
-    <!--<RadioGroup-->
-        <!--android:elevation="5dp"-->
-        <!--android:id="@+id/rg_bottom"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:padding="4dp">-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_home"-->
-            <!--style="@style/text_black9_14sp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:drawablePadding="2dp"-->
-            <!--android:drawableTop="@drawable/ic_main_home"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/home" />-->
-
-        <!--<RadioButton-->
-            <!--android:id="@+id/rb_my"-->
-            <!--style="@style/text_black9_14sp"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:button="@null"-->
-            <!--android:drawablePadding="2dp"-->
-            <!--android:drawableTop="@drawable/ic_main_my"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/my" />-->
-    <!--</RadioGroup>-->
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
