@@ -1,10 +1,13 @@
 package com.dong.develop.ui.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 
 import com.dong.develop.R;
 import com.dong.develop.base.LazyFragment;
+import com.dong.develop.contract.MainActivityContract;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -16,7 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * 我的
  */
 
-public class MyFragment extends LazyFragment {
+public class MyFragment extends LazyFragment implements MainActivityContract.MView{
     @BindView(R.id.iv_my_head)
     CircleImageView ivMyHead;
     @BindView(R.id.cd_my_head)
@@ -28,13 +31,12 @@ public class MyFragment extends LazyFragment {
     Unbinder unbinder;
 
     @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_my;
+    protected void initView(View view, @Nullable Bundle savedInstanceState) {
     }
 
     @Override
-    protected void initData() {
-
+    protected int getLayoutId() {
+        return R.layout.fragment_my;
     }
 
     @OnClick({R.id.iv_my_head, R.id.cd_my_head, R.id.cd_my_about, R.id.cd_my_setting})
@@ -49,5 +51,10 @@ public class MyFragment extends LazyFragment {
             case R.id.cd_my_setting:
                 break;
         }
+    }
+
+    @Override
+    protected void lazyLoad() {
+
     }
 }
