@@ -2,72 +2,47 @@ package com.dong.develop.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
- * Created by dong on 2017/5/17.
+ * Created by dong on 2017/5/19.
  */
 
-public abstract class LazyFragment extends BaseFragment{
+public abstract class LazyFragment extends BaseFrament{
     /**
-     * fragment是否可见
+     * 是否可见
      */
-    protected boolean isVisibleToUser;
+    protected Boolean isVisibleToUser = false;
     /**
-     * view是否初始化完成
+     * 布局是否初始化成功
      */
-    protected boolean isInitView;
+    protected Boolean isInitView = false;
     /**
-     * 是否第一次加载数据
+     * 是否第一次加载
      */
-    protected boolean isFirstLoad = true;
-    private Unbinder bkBind;
+    protected Boolean isFirstLoad = false;
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView(view,savedInstanceState);
+        isInitView = true;
+        initData();
+    }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        lazyLoad();
+        initData();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View inflate = inflater.inflate(getLayoutId(), container, false);
-        bkBind = ButterKnife.bind(inflate);
-        isInitView = true;
-        lazyLoad();
-        return inflate;
-    }
+    protected abstract void lazyLoad();
 
-    /**
-     * 返回需要加载的布局id
-     * @return
-     */
-    protected abstract int getLayoutId();
-
-    private void lazyLoad() {
-        if(isVisibleToUser && isInitView && isFirstLoad) {
-            initData();
+    private void initData() {
+        if(isVisibleToUser&&isInitView&&isFirstLoad) {
+            lazyLoad();
             isFirstLoad = false;
         }
-    }
-
-    /**
-     * 加载数据，在懒加载判断成功后会被调用一次
-     */
-    protected abstract void initData();
-
-    @Override
-    public void onDestroyView() {
-        if(bkBind != null) {
-            bkBind.unbind();
-        }
-        super.onDestroyView();
     }
 }

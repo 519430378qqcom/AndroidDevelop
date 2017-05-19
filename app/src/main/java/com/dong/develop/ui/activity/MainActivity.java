@@ -1,6 +1,8 @@
 package com.dong.develop.ui.activity;
 
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
@@ -8,10 +10,11 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.dong.develop.R;
 import com.dong.develop.adapter.MainAdapter;
 import com.dong.develop.base.BaseActivity;
+import com.dong.develop.contract.MainActivityContract;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MainActivityContract.MView {
 
     @BindView(R.id.vp_container)
     ViewPager vpContainer;
@@ -25,7 +28,7 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    protected void initView() {
+    protected void initView(@Nullable Bundle savedInstanceState) {
         vpContainer.setOffscreenPageLimit(1);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_main_home, R.string.home))
                 .addItem(new BottomNavigationItem(R.drawable.ic_main_my, R.string.my))
@@ -36,6 +39,10 @@ public class MainActivity extends BaseActivity {
                 .setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC)
                 .setFirstSelectedPosition(0)
                 .initialise();
+        if (mainAdapter == null) {
+            mainAdapter = new MainAdapter(getSupportFragmentManager());
+        }
+        vpContainer.setAdapter(mainAdapter);
     }
 
     private BottomNavigationBar.OnTabSelectedListener bottomNavigationBarListener = new BottomNavigationBar.OnTabSelectedListener() {
@@ -55,13 +62,4 @@ public class MainActivity extends BaseActivity {
 
         }
     };
-
-    @Override
-    protected void initData() {
-        if (mainAdapter == null) {
-            mainAdapter = new MainAdapter(getSupportFragmentManager());
-        }
-        vpContainer.setAdapter(mainAdapter);
-        bottomNavigationBar.setInActiveColor(R.color.black_3);
-    }
 }
