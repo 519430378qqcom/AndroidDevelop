@@ -10,11 +10,10 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.dong.develop.R;
 import com.dong.develop.adapter.MainAdapter;
 import com.dong.develop.base.BaseActivity;
-import com.dong.develop.contract.MainActivityContract;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements MainActivityContract.MView {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.vp_container)
     ViewPager vpContainer;
@@ -31,7 +30,8 @@ public class MainActivity extends BaseActivity implements MainActivityContract.M
     protected void initView(@Nullable Bundle savedInstanceState) {
         vpContainer.setOffscreenPageLimit(1);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_main_home, R.string.home))
-                .addItem(new BottomNavigationItem(R.drawable.ic_main_my, R.string.my))
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_home, R.string.home))
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_test, R.string.my))
                 .setTabSelectedListener(bottomNavigationBarListener)
                 .setInActiveColor(R.color.black_9)//未选中时的颜色
                 .setActiveColor(R.color.colorAccent)//选中时的颜色

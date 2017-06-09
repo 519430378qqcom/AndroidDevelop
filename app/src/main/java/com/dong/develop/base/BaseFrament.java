@@ -16,7 +16,7 @@ import butterknife.Unbinder;
  * Created by dong on 2017/5/19.
  */
 
-public abstract class BaseFrament extends Fragment{
+public abstract class BaseFrament<V extends BaseView,P extends BasePresenter> extends Fragment{
     /**
      * fragment根布局
      */
@@ -25,14 +25,18 @@ public abstract class BaseFrament extends Fragment{
      * ButterKnife返回的引用，用于unbind
      */
     private Unbinder bkBind;
-
+    protected P mPresenter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if(rootView == null) {
             rootView = inflater.inflate(getLayoutId(),container,false);
         }
-        bkBind = ButterKnife.bind(rootView);
+        bkBind = ButterKnife.bind(this,rootView);
+        mPresenter = getInstance(this,1);
+        if(mPresenter instanceof BasePresenter) {
+            mPresenter.attachView((V)this);
+        }
         return rootView;
     }
 
@@ -55,7 +59,8 @@ public abstract class BaseFrament extends Fragment{
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        bkBind.unbind();
+        if(mPresenter != null) mPresenter.detachView();
+        if(bkBind != null) bkBind.unbind();
     }
 
     /**

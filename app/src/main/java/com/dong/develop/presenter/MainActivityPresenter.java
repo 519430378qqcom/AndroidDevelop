@@ -1,14 +1,13 @@
 package com.dong.develop.presenter;
 
-import com.dong.develop.contract.MainActivityContract;
+import com.dong.develop.contract.MainContract;
 
 /**
  * Created by dong on 2017/5/19.
  */
 
-public class MainActivityPresenter extends MainActivityContract.MPresenter{
+public class MainActivityPresenter extends MainContract.MPresenter{
     @Override
-    protected void start() {
-
+    public void start() {
     }
 }
