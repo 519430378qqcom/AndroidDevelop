@@ -2,9 +2,9 @@ package com.dong.develop.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.develop.core.utils.AppManager;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -15,7 +15,7 @@ import butterknife.Unbinder;
  * Created by dong on 2017/5/19.
  */
 
-public abstract class BaseActivity<V extends BaseView,P extends BasePresenter> extends AppCompatActivity{
+public abstract class BaseActivity<V extends IBaseView,P extends BasePresenter> extends RxAppCompatActivity {
     /**
      * ButterKnife返回的引用，用于unbind
      */

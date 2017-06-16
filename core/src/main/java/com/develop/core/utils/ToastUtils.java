@@ -9,7 +9,6 @@ import android.widget.Toast;
  */
 public class ToastUtils {
 
-    private static Context sContext;
     private static String oldMsg;
     protected static Toast toast = null;
     private static long oneTime = 0;
@@ -19,13 +18,9 @@ public class ToastUtils {
         throw new RuntimeException("ToastUtils cannot be initialized!");
     }
 
-    public static void init(Context context) {
-        sContext = context;
-    }
-
-    public static void showToast(String s) {
+    public static void showToast(Context context,String s) {
         if (toast == null) {
-            toast = Toast.makeText(sContext, s, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(context, s, Toast.LENGTH_SHORT);
             toast.show();
             oneTime = System.currentTimeMillis();
         } else {
@@ -43,7 +38,7 @@ public class ToastUtils {
         }
     }
 
-    public static void showToast(int resId) {
-        showToast(sContext.getString(resId));
+    public static void showToast(Context context,int resId) {
+        showToast(context,context.getString(resId));
     }
 }

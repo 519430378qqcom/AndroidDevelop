@@ -10,7 +10,7 @@ import android.view.View;
  * Created by dong on 2017/5/19.
  */
 
-public abstract class LazyFragment<V extends BaseView,P extends BasePresenter> extends BaseFrament<V,P>{
+public abstract class LazyFragment<V extends IBaseView,P extends BasePresenter> extends BaseFrament<V,P>{
     /**
      * 是否可见
      */

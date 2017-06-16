@@ -2,10 +2,12 @@ package com.dong.develop.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.hwangjr.rxbus.RxBus;
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -16,7 +18,7 @@ import butterknife.Unbinder;
  * Created by dong on 2017/5/19.
  */
 
-public abstract class BaseFrament<V extends BaseView,P extends BasePresenter> extends Fragment{
+public abstract class BaseFrament<V extends IBaseView,P extends BasePresenter> extends RxFragment {
     /**
      * fragment根布局
      */
@@ -44,6 +46,7 @@ public abstract class BaseFrament<V extends BaseView,P extends BasePresenter> ex
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view,savedInstanceState);
+        RxBus.get().register(this);
     }
     /**
      * 初始化视图
@@ -61,6 +64,7 @@ public abstract class BaseFrament<V extends BaseView,P extends BasePresenter> ex
         super.onDestroyView();
         if(mPresenter != null) mPresenter.detachView();
         if(bkBind != null) bkBind.unbind();
+        RxBus.get().unregister(this);
     }
 
     /**
