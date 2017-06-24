@@ -39,6 +39,8 @@ import io.reactivex.functions.Function;
 public class HomeFragment extends LazyFragment<HomeFragmentContract.IView, HomeFragmentPresenter> implements HomeFragmentContract.IView {
     @BindView(R.id.tv)
     TextView tv;
+    @BindView(R.id.tv1)
+    TextView tv1;
     RxPermissions rxPermissions;
 
     @Override
@@ -80,6 +82,7 @@ public class HomeFragment extends LazyFragment<HomeFragmentContract.IView, HomeF
                         }
                     }
                 });
+        tv1.setText((new Integer(1)==1)+"");
     }
 
     @Override

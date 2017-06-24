@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
-    packagingOptions{
+    packagingOptions {
         exclude 'META-INF/rxjava.properties'
     }
     defaultConfig {
@@ -12,11 +12,28 @@ android {
         versionCode 1
         versionName "1.0"
     }
+//    signingConfigs {
+//        release {
+//        storeFile file("./lemeng.jks")
+//        storePassword "123456"
+//        keyAlias "lemeng"
+//        keyPassword "123456"
+//        }
+//        debug{
+//
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
+//            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+//        debug {
+//            debuggable true
+//            minifyEnabled false
+////            signingConfig signingConfigs.debug
+//        }
     }
 }
 
@@ -30,7 +47,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.jakewharton:butterknife:8.6.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
-    compile project (':core')
+    compile project(':core')
     // rxjava
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.0'
@@ -40,12 +57,11 @@ dependencies {
 //    compile 'com.jakewharton.rxbinding2:rxbinding-design:2.0.0'
 //    compile 'com.jakewharton.rxbinding2:rxbinding-recyclerview-v7:2.0.0'
 //    compile 'com.jakewharton.rxbinding2:rxbinding-leanback-v17:2.0.0'
-    compile ('com.hwangjr.rxbus:rxbus:1.0.5') {
+    compile('com.hwangjr.rxbus:rxbus:1.0.5') {
         exclude group: 'com.jakewharton.timber', module: 'timber'
     }
     compile 'com.trello.rxlifecycle2:rxlifecycle-android:2.1.0'
     compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
-
     compile 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
     // retrofit
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -54,8 +70,13 @@ dependencies {
     //Lottie
     compile 'com.airbnb.android:lottie:2.0.0-rc1'
     //virtualLayout
-    compile ('com.alibaba.android:vlayout:1.0.7@aar') {
+    compile('com.alibaba.android:vlayout:1.0.7@aar') {
         transitive = true
     }
     compile 'com.orhanobut:logger:2.1.1'
+    // 若使用annotation需要单独引用,对于tinker的其他库都无需再引用
+    provided("com.tinkerpatch.tinker:tinker-android-anno:1.7.11")
+    compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.7")
 }
+
+apply from: 'tinkerpatch.gradle'
