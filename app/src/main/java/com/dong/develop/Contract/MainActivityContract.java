@@ -1,15 +1,16 @@
 package com.dong.develop.contract;
 
 import com.dong.develop.base.BasePresenter;
-import com.dong.develop.base.BaseView;
+import com.dong.develop.base.IBaseView;
 
 /**
  * Created by dong on 2017/5/19.
  */
 
 public interface MainActivityContract {
-    abstract class MPresenter<V extends MView> extends BasePresenter<V>{
+    abstract class Presenter<V extends IView> extends BasePresenter<V>{
 
     }
-    interface MView extends BaseView {}
+    interface IView extends IBaseView {}
+
 }

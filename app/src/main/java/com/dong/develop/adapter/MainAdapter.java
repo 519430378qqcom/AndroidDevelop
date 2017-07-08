@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.dong.develop.ui.fragment.HomeFragment;
 import com.dong.develop.ui.fragment.MyFragment;
+import com.dong.develop.ui.fragment.TestFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ public class MainAdapter extends FragmentPagerAdapter{
         super(fm);
         fragmentList = new ArrayList<>();
         fragmentList.add(new HomeFragment());
+        fragmentList.add(new TestFragment());
         fragmentList.add(new MyFragment());
     }
 

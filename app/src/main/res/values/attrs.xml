@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EasyPickerView">
+        <attr name="epvTextSize" format="dimension"/>
+        <attr name="epvTextColor" format="color"/>
+        <attr name="epvTextPadding" format="dimension"/>
+        <attr name="epvTextMaxScale" format="float"/>
+        <attr name="epvTextMinAlpha" format="float"/>
+        <attr name="epvRecycleMode" format="boolean"/>
+        <attr name="epvMaxShowNum" format="integer"/>
+    </declare-styleable>
+    <declare-styleable name="NumberPickerView">
+        <attr name="npvTextSize" format="dimension"/>
+        <attr name="npvTextColor" format="color"/>
+        <attr name="npvTextPadding" format="dimension"/>
+        <attr name="npvTextMaxScale" format="float"/>
+        <attr name="npvTextMinAlpha" format="float"/>
+        <attr name="npvRecycleMode" format="boolean"/>
+        <attr name="npvMaxShowNum" format="integer"/>
+    </declare-styleable>
+</resources>

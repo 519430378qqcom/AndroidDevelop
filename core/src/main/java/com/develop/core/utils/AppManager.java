@@ -8,6 +8,7 @@ import java.util.Stack;
 
 /**
  * Created by dong on 2017/5/19.
+ * App中activity的管理类
  */
 
 public class AppManager {
