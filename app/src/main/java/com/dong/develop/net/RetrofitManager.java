@@ -39,7 +39,7 @@ public class RetrofitManager {
      */
     public static void init() {
         // 指定缓存路径,缓存大小100Mb
-        Cache cache = new Cache(new File(MyApplication.getContext().getCacheDir(), "HttpCache"),
+        Cache cache = new Cache(new File(MyApplication.mContext.getCacheDir(), "HttpCache"),
                 1024 * 1024 * 100);
         OkHttpClient okHttpClient = new OkHttpClient.Builder().cache(cache)
                 .retryOnConnectionFailure(true)

@@ -4,7 +4,7 @@ apply plugin: 'tinkerpatch-support'
  * TODO: 请按自己的需求修改为适应自己工程的参数
  */
 def bakPath = file("${buildDir}/bakApk/")
-def baseInfo = "develop"
+def baseInfo = "app-1.0.0-0721-15-51-04"
 def variantName = "debug"
 
 /**
@@ -18,7 +18,7 @@ tinkerpatchSupport {
      需要你手动修改'tinker.sample.android.app'本示例的包名为你自己的包名, com.xxx前缀的包名不用修改
      **/
     /** 可以在debug的时候关闭 tinkerPatch **/
-    tinkerEnable = true
+    tinkerEnable = false
     /** 是否使用一键接入功能  **/
     reflectApplication = true
     /**将每次编译产生的 apk/mapping.txt/R.txt 归档存储的位置**/

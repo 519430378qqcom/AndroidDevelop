@@ -1,7 +1,9 @@
 package com.dong.develop;
 
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.dong.develop.net.RetrofitManager;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -17,15 +19,24 @@ import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
  */
 
 public class MyApplication extends Application {
-
+    public static final String PROCESS_NAME = "com.dong.develop";
     private ApplicationLike tinkerApplicationLike;
+    public static Context mContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = getApplicationContext();
         //初始化retrofit
         RetrofitManager.init();
         initLogger();
+        if (BuildConfig.TINKER_ENABLE) {
+            initTinker();
+        }
+    }
+
+    private void initUncatchException() {
+        Thread.setDefaultUncaughtExceptionHandler(new MyUncatchException());
     }
 
     /**
@@ -45,7 +56,11 @@ public class MyApplication extends Application {
             }
         });
     }
-    private void initTinker(){
+
+    /**
+     * 初始化tinker
+     */
+    private void initTinker() {
         // 我们可以从这里获得Tinker加载过程的信息
         tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
         // 初始化TinkerPatch SDK, 更多配置可参照API章节中的,初始化SDK
@@ -53,12 +68,41 @@ public class MyApplication extends Application {
                 .reflectPatchLibrary()
                 .setPatchRollbackOnScreenOff(true)
                 .setPatchRestartOnSrceenOff(true)
-                .setFetchPatchIntervalByHours(3);
-
-        // 每隔3个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
+                .setFetchPatchIntervalByHours(1);
+        // 每隔1个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
         TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
     }
-    public static Context getContext(){
-        return getContext();
+
+    /**
+     * 判断是不是UI主进程，因为有些东西只能在UI主进程初始化
+     */
+    public static boolean isAppMainProcess() {
+        try {
+            int pid = android.os.Process.myPid();
+            String process = getAppNameByPID(mContext, pid);
+            if (TextUtils.isEmpty(process)) {
+                return true;
+            } else if (PROCESS_NAME.equalsIgnoreCase(process)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return true;
+        }
+    }
+
+    /**
+     * 根据Pid得到进程名
+     */
+    public static String getAppNameByPID(Context context, int pid) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (android.app.ActivityManager.RunningAppProcessInfo processInfo : manager.getRunningAppProcesses()) {
+            if (processInfo.pid == pid) {
+                return processInfo.processName;
+            }
+        }
+        return "";
     }
 }

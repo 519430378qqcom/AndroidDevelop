@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply from: 'tinkerpatch.gradle'
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
@@ -10,30 +11,38 @@ android {
         minSdkVersion 21
         targetSdkVersion 24
         versionCode 1
-        versionName "1.0"
-    }
-//    signingConfigs {
-//        release {
-//        storeFile file("./lemeng.jks")
-//        storePassword "123456"
-//        keyAlias "lemeng"
-//        keyPassword "123456"
-//        }
-//        debug{
-//
-//        }
-//    }
-    buildTypes {
-        release {
-            minifyEnabled false
-//            signingConfig signingConfigs.release
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        versionName "1.0.0"
+        ndk {
+            moduleName "MyJni"
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86_64"
         }
-//        debug {
-//            debuggable true
-//            minifyEnabled false
-////            signingConfig signingConfigs.debug
-//        }
+    }
+    sourceSets {
+        main {
+            jni.srcDirs = []
+            jniLibs.srcDirs = ['src/main/jinLibs']
+        }
+    }
+    signingConfigs {
+        release {
+            try {
+                storeFile file("./androidDevelop.jks")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias KEY_ALIAS
+                keyPassword KEY_PASSWORD
+            } catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.");
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.release
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
     }
 }
 
@@ -77,6 +86,6 @@ dependencies {
     // 若使用annotation需要单独引用,对于tinker的其他库都无需再引用
     provided("com.tinkerpatch.tinker:tinker-android-anno:1.7.11")
     compile("com.tinkerpatch.sdk:tinkerpatch-android-sdk:1.1.7")
+    //友盟
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }
-
-apply from: 'tinkerpatch.gradle'

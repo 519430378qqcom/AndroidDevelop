@@ -13,7 +13,6 @@ import java.util.Locale;
  * 日期时间工具类
  */
 public class DateUtils {
-
     public static final long ONE_SECOND_MILLIONS = 1000;
     public static final long ONE_MINUTE_MILLIONS = 60 * ONE_SECOND_MILLIONS;
     public static final long ONE_HOUR_MILLIONS = 60 * ONE_MINUTE_MILLIONS;
@@ -21,11 +20,15 @@ public class DateUtils {
     public static final int DAY_OF_YEAR = 365;
 
     // 日期格式为 2016-02-03 17:04:58
-    public static final String PATTERN_DATE = "yyyy年MM月dd日";
-    public static final String PATTERN_TIME = "HH:mm:ss";
+    public static final String PATTERN_ALL = "yyyy年MM月dd日 HH:mm:ss";
+    public static final String PATTERN_yMd = "yyyy年MM月dd日";
+    public static final String PATTERN_Hms = "HH:mm:ss";
     public static final String PATTERN_SPLIT = " ";
-    public static final String PATTERN = PATTERN_DATE + PATTERN_SPLIT + PATTERN_TIME;
 
+    public static final String PATTERN = PATTERN_yMd + PATTERN_SPLIT + PATTERN_Hms;
+    public static String timeFormat(Date date,String pattern){
+        return new SimpleDateFormat(pattern).format(date);
+    }
     public static String getShortTime(String dateStr) {
         String str;
 
@@ -53,7 +56,7 @@ public class DateUtils {
     }
 
     /**
-     * 获取日期 PATTERN_DATE 部分
+     * 获取日期 PATTERN_yMd 部分
      */
     public static String getDate(String date) {
         if (TextUtils.isEmpty(date) || !date.contains(PATTERN_SPLIT)) {
@@ -65,12 +68,12 @@ public class DateUtils {
     /**
      * 原有日期上累加月
      *
-     * @return 累加后的日期 PATTERN_DATE 部分
+     * @return 累加后的日期 PATTERN_yMd 部分
      */
     public static String addMonth(String date, int moonCount) {
         //如果date为空 就用当前时间
         if (TextUtils.isEmpty(date)) {
-            SimpleDateFormat df = new SimpleDateFormat(PATTERN_DATE + PATTERN_SPLIT + PATTERN_TIME);
+            SimpleDateFormat df = new SimpleDateFormat(PATTERN_yMd + PATTERN_SPLIT + PATTERN_Hms);
             date = df.format(new Date());
         }
         Calendar calendar = str2calendar(date);
@@ -145,8 +148,8 @@ public class DateUtils {
      * @return
      */
     public static int calculateMonthDiff(String targetTime, String compareTime) {
-        return calculateMonthDiff(str2date(targetTime, PATTERN_DATE),
-                str2date(compareTime, PATTERN_DATE));
+        return calculateMonthDiff(str2date(targetTime, PATTERN_yMd),
+                str2date(compareTime, PATTERN_yMd));
     }
 
     /**

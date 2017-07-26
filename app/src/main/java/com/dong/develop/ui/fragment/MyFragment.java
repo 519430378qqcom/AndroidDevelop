@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.develop.core.utils.ToastUtils;
 import com.dong.develop.R;
 import com.dong.develop.base.LazyFragment;
 
@@ -27,7 +28,7 @@ public class MyFragment extends LazyFragment {
 
     @Override
     protected void initData() {
-
+        ToastUtils.showToast(mContext,"随便");
     }
 
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.develop.core.utils.AppManager;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.umeng.analytics.MobclickAgent;
 
 import java.lang.reflect.ParameterizedType;
 
@@ -45,6 +46,18 @@ public abstract class BaseActivity<V extends IBaseView,P extends BasePresenter> 
      * 初始化视图
      */
     protected abstract void initView(@Nullable Bundle savedInstanceState);
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 
     @Override
     protected void onDestroy() {

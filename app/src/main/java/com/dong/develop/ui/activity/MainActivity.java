@@ -30,8 +30,8 @@ public class MainActivity extends BaseActivity {
     protected void initView(@Nullable Bundle savedInstanceState) {
         vpContainer.setOffscreenPageLimit(1);
         bottomNavigationBar.addItem(new BottomNavigationItem(R.drawable.ic_main_home, R.string.home))
-                .addItem(new BottomNavigationItem(R.drawable.ic_main_home, R.string.home))
-                .addItem(new BottomNavigationItem(R.drawable.ic_main_test, R.string.my))
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_test, R.string.home))
+                .addItem(new BottomNavigationItem(R.drawable.ic_main_my, R.string.my))
                 .setTabSelectedListener(bottomNavigationBarListener)
                 .setInActiveColor(R.color.black_9)//未选中时的颜色
                 .setActiveColor(R.color.colorAccent)//选中时的颜色
