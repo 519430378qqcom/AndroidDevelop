@@ -30,6 +30,7 @@ javah -d jni -classpath C:\Android\sdk\platforms\android-24\android.jar
 ;..\..\build\intermediates\classes\debug\ com.dong.develop.utils.NDK
 
 <h4>命令说明</h4>
+<pre>
 javah -d jni -classpath
 javah是生成头文件的工具，-d jni 在工程下生成jni目录，到时会在这个目录下建JNI开始的C/C++源文件的。
 <br>
@@ -46,5 +47,3 @@ C:\Android\sdk\platforms\android-24\android.jar
             abiFilters "arm64-v8a","armeabi-v7a","x86_64"
         }
 </pre>
-
- 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.dong.develop.net.RetrofitManager;
+import com.meituan.android.walle.WalleChannelReader;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -13,6 +14,8 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.tencent.tinker.loader.app.ApplicationLike;
 import com.tinkerpatch.sdk.TinkerPatch;
 import com.tinkerpatch.sdk.loader.TinkerPatchApplicationLike;
+import com.umeng.analytics.MobclickAgent;
+
 
 /**
  * Created by dong on 2017/6/9.
@@ -33,12 +36,33 @@ public class MyApplication extends Application {
         if (BuildConfig.TINKER_ENABLE) {
             initTinker();
         }
+        initUMChannel();
     }
 
-    private void initUncatchException() {
-        Thread.setDefaultUncaughtExceptionHandler(new MyUncatchException());
+    /**
+     * 初始化友盟渠道
+     */
+    private void initUMChannel() {
+        String channel = WalleChannelReader.getChannel(mContext);
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext,"59759e781c5dd03d93000e39",channel));
     }
-
+    /**
+     * 初始化tinker
+     */
+    private void initTinker() {
+        if(BuildConfig.TINKER_ENABLE) {
+            // 我们可以从这里获得Tinker加载过程的信息
+            tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
+            // 初始化TinkerPatch SDK, 更多配置可参照API章节中的,初始化SDK
+            TinkerPatch.init(tinkerApplicationLike)
+                    .reflectPatchLibrary()
+                    .setPatchRollbackOnScreenOff(true)
+                    .setPatchRestartOnSrceenOff(true)
+                    .setFetchPatchIntervalByHours(1);
+            // 每隔1个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
+            TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
+        }
+    }
     /**
      * 初始化Logger
      */
@@ -55,22 +79,6 @@ public class MyApplication extends Application {
                 return BuildConfig.DEBUG;
             }
         });
-    }
-
-    /**
-     * 初始化tinker
-     */
-    private void initTinker() {
-        // 我们可以从这里获得Tinker加载过程的信息
-        tinkerApplicationLike = TinkerPatchApplicationLike.getTinkerPatchApplicationLike();
-        // 初始化TinkerPatch SDK, 更多配置可参照API章节中的,初始化SDK
-        TinkerPatch.init(tinkerApplicationLike)
-                .reflectPatchLibrary()
-                .setPatchRollbackOnScreenOff(true)
-                .setPatchRestartOnSrceenOff(true)
-                .setFetchPatchIntervalByHours(1);
-        // 每隔1个小时(通过setFetchPatchIntervalByHours设置)去访问后台时候有更新,通过handler实现轮训的效果
-        TinkerPatch.with().fetchPatchUpdateAndPollWithInterval();
     }
 
     /**
