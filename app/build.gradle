@@ -14,14 +14,14 @@ android {
         versionCode 1
         versionName "1.0.0"
         ndk {
-            moduleName "MyJni"
+            moduleName "secret"
             abiFilters "arm64-v8a", "armeabi-v7a", "x86_64"
         }
     }
     sourceSets {
         main {
-            jni.srcDirs = []
-            jniLibs.srcDirs = ['src/main/jinLibs']
+            jni.srcDirs = ['src/main/jni']//指定jin的目录路径
+            jniLibs.srcDirs = ['src/main/jinLibs']//指定jinLibs目录路径
         }
     }
     signingConfigs {

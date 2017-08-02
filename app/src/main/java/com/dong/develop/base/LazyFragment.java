@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.orhanobut.logger.Logger;
+
 
 /**
  * Created by dong on 2017/5/19.
@@ -30,21 +32,25 @@ public abstract class LazyFragment<V extends IBaseView,P extends BasePresenter> 
         initView(view,savedInstanceState);
         mContext = getActivity();
         isInitView = true;
-        lazyLoad();
+        initData();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         this.isVisibleToUser = isVisibleToUser;
-        lazyLoad();
+        Logger.e("formLazyFragment->"+this.getClass().getSimpleName()+"---"+isVisibleToUser);
+        initData();
     }
 
-    protected abstract void initData();
+    /**
+     * 实现懒加载方法加载数据
+     */
+    protected abstract void lazyLoad();
 
-    private void lazyLoad() {
+    private void initData() {
         if(isVisibleToUser&&isInitView&&isFirstLoad) {
-            initData();
+            lazyLoad();
             isFirstLoad = false;
         }
     }

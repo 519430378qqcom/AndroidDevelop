@@ -91,7 +91,7 @@ public class HomeFragment extends LazyFragment<HomeFragmentContract.IView, HomeF
     }
 
     @Override
-    protected void initData() {
+    protected void lazyLoad() {
         mPresenter.getData();
     }
 

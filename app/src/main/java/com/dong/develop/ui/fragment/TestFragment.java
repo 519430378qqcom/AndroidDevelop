@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.develop.core.utils.ToastUtils;
 import com.dong.develop.R;
 import com.dong.develop.base.LazyFragment;
+import com.dong.develop.utils.NDK;
 
 import butterknife.BindView;
 
@@ -19,8 +21,8 @@ public class TestFragment extends LazyFragment{
     @BindView(R.id.recycler_virtual)
     RecyclerView recycler_virtual;
     @Override
-    protected void initData() {
-
+    protected void lazyLoad() {
+        ToastUtils.showToast(mContext, NDK.getTime());
     }
 
     @Override

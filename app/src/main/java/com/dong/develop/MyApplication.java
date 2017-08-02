@@ -6,6 +6,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.dong.develop.net.RetrofitManager;
+import com.dong.develop.utils.Secret;
 import com.meituan.android.walle.WalleChannelReader;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
@@ -44,7 +45,7 @@ public class MyApplication extends Application {
      */
     private void initUMChannel() {
         String channel = WalleChannelReader.getChannel(mContext);
-        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext,"59759e781c5dd03d93000e39",channel));
+        MobclickAgent.startWithConfigure(new MobclickAgent.UMAnalyticsConfig(mContext, Secret.getUmkey(),channel));
     }
     /**
      * 初始化tinker

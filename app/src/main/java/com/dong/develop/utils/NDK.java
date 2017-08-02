@@ -12,9 +12,6 @@ public class NDK {
     static {
         System.loadLibrary("MyJni");
     }
-    public native String getTime();
-    public native String getTime1();
-    public native String getTime2();
-    public native String getTime3();
-    public native String getTime4();
+    public static native String getTime();
+    public static native String getTime1();
 }

@@ -64,7 +64,7 @@ public abstract class BaseActivity<V extends IBaseView,P extends BasePresenter> 
         super.onDestroy();
         if(mPresenter != null) mPresenter.detachView();
         if(bkBind != null) bkBind.unbind();
-        AppManager.getInstance().finishActivity(this);
+        AppManager.getInstance().removeActivity(this);
     }
     /**
      * 获取当前对象的泛型类，并为其创建实例
