@@ -1,5 +1,5 @@
 # AndroidDevelop
-android开发收录@author：崔东
+android开发录@author：崔东
 @email：<a href = "http://mail.sina.com.cn/">dgsimle@sina.com<a>
 ## 代码结构说明
 adpter -->适配器<br>
